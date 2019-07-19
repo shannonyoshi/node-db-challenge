@@ -27,13 +27,13 @@ async function findById(id) {
         "actions.completed",
         "actions.project_id"
       );
-      actions.forEach(action=> {
-          if (action.completed === 0) {
+    actions.forEach(action => {
+      if (action.completed === 0) {
         action.completed = "false";
       } else {
         action.completed = "true";
       }
-    })
+    });
     const result = { ...project, actions };
     return result;
   } else {

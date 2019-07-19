@@ -14,4 +14,14 @@ router.post("/:id", async (req, res)=> {
     }
 })
 
+router.get("/:id", async(req, res)=> {
+    try{
+        const action = await Actions.findWithContexts(req.params.id)
+        res.status(200).json(action)
+    } catch(error) {
+        console.log(error)
+        res.status(500).json({message: "Failed to retrieve action"})
+    }
+})
+
 module.exports=router
