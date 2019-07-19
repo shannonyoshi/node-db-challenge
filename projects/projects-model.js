@@ -12,6 +12,11 @@ async function findById(id) {
     .where({ "projects.id": id })
     .select("projects.*")
     .first();
+  if (project.completed === 0) {
+    project.completed = "false";
+  } else {
+    project.completed = "true";
+  }
   if (project) {
     const actions = await db("projects")
       .where({ "projects.id": id })
@@ -22,7 +27,13 @@ async function findById(id) {
         "actions.completed",
         "actions.project_id"
       );
-
+      actions.forEach(action=> {
+          if (action.completed === 0) {
+        action.completed = "false";
+      } else {
+        action.completed = "true";
+      }
+    })
     const result = { ...project, actions };
     return result;
   } else {
